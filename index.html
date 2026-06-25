@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<link rel="icon" type="image/png" href="logo2.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GD Installazioni — Montaje e instalación de líneas automatizadas</title>
+<meta name="description" content="18 años instalando y manteniendo líneas de producción automatizadas en México, Italia y EE.UU. Tableros eléctricos, robots paletizadores, soporte técnico 24/7.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ink:#14171C;
+  --steel:#1F2430;
+  --steel-light:#2B313F;
+  --rojo:#C8102E;
+  --rojo-dim:#8E0A20;
+  --rojo-bright:#E8203F;
+  --bone:#F5F3EE;
+  --grey:#9CA3AF;
+  --grey-dim:#5C6370;
+  --line:rgba(245,243,238,0.12);
+  --line-strong:rgba(245,243,238,0.22);
+
+  --display: 'Space Grotesk', sans-serif;
+  --body: 'IBM Plex Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+
+  --maxw: 1180px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--ink);
+  color:var(--bone);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+}
+
+:focus-visible{
+  outline:2px solid var(--rojo-bright);
+  outline-offset:3px;
+}
+
+.rivet{
+  position:absolute;
+  width:6px;height:6px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, #6b7280, #2a2e36 70%);
+  box-shadow:0 0 0 1px rgba(0,0,0,0.4);
+}
+.panel{
+  position:relative;
+  border:1px solid var(--line-strong);
+  background:var(--steel);
+}
+.panel .rivet:nth-of-type(1){top:10px;left:10px;}
+.panel .rivet:nth-of-type(2){top:10px;right:10px;}
+.panel .rivet:nth-of-type(3){bottom:10px;left:10px;}
+.panel .rivet:nth-of-type(4){bottom:10px;right:10px;}
+
+.topbar{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:rgba(20,23,28,0.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:var(--maxw); margin:0 auto; padding:0 28px;
+  height:76px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:20px;
+}
+.brand{
+  display:flex; align-items:center; gap:12px;
+  flex-shrink:0;
+}
+.brand img{
+  height:38px; width:auto;
+  flex-shrink:0;
+}
+.nav{
+  display:flex; gap:28px; align-items:center;
+}
+.nav a{
+  font-family:var(--mono); font-size:13px; letter-spacing:0.04em;
+  color:var(--grey); text-transform:uppercase;
+  transition:color 0.2s;
+  position:relative;
+  white-space:nowrap;
+}
+.nav a::after{
+  content:''; position:absolute; left:0; bottom:-6px; width:0; height:1px;
+  background:var(--rojo-bright); transition:width 0.25s;
+}
+.nav a:hover{color:var(--bone);}
+.nav a:hover::after{width:100%;}
+.nav-cta{
+  border:1px solid var(--rojo-bright);
+  color:var(--bone) !important;
+  padding:9px 18px;
+  font-size:12px !important;
+}
+.nav-cta::after{display:none;}
+.nav-cta:hover{background:var(--rojo-bright); color:var(--bone) !important;}
+
+.lang-switch{
+  display:flex; align-items:center;
+  border:1px solid var(--line-strong);
+  flex-shrink:0;
+}
+.lang-switch button{
+  background:transparent; border:none;
+  color:var(--grey);
+  font-family:var(--mono); font-size:11.5px; font-weight:600; letter-spacing:0.03em;
+  padding:8px 11px;
+  transition:background 0.2s, color 0.2s;
+  border-right:1px solid var(--line-strong);
+}
+.lang-switch button:last-child{border-right:none;}
+.lang-switch button:hover{color:var(--bone);}
+.lang-switch button.active{
+  background:var(--rojo-bright); color:var(--bone);
+}
+
+.right-controls{
+  display:flex; align-items:center; gap:18px;
+}
+
+.menu-btn{
+  display:none;
+  width:38px;height:38px;
+  border:1px solid var(--line-strong);
+  background:transparent;
+  flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  flex-shrink:0;
+}
+.menu-btn span{width:18px;height:1.5px;background:var(--bone);}
+
+.hero{
+  position:relative;
+  padding:152px 0 90px;
+  overflow:hidden;
+  border-bottom:1px solid var(--line);
+}
+.hero::before{
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:64px 64px;
+  opacity:0.5;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 20%, black, transparent);
+  pointer-events:none;
+}
+.hero-inner{
+  position:relative; z-index:1;
+  display:grid;
+  grid-template-columns:1.15fr 0.85fr;
+  gap:56px;
+  align-items:start;
+}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--mono); font-size:12.5px; letter-spacing:0.08em;
+  color:var(--rojo-bright); text-transform:uppercase;
+  margin-bottom:24px;
+}
+.eyebrow .dot{
+  width:7px;height:7px; border-radius:50%; background:var(--rojo-bright);
+  box-shadow:0 0 0 0 rgba(232,32,63,0.6);
+  animation:pulse 2.2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(232,32,63,0.55);}
+  70%{box-shadow:0 0 0 8px rgba(232,32,63,0);}
+  100%{box-shadow:0 0 0 0 rgba(232,32,63,0);}
+}
+h1{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:clamp(2.4rem, 4.6vw, 4rem);
+  line-height:1.04;
+  letter-spacing:-0.01em;
+  margin-bottom:24px;
+}
+h1 .accent{color:var(--rojo-bright);}
+.hero-sub{
+  font-size:17px;
+  color:var(--grey);
+  max-width:520px;
+  margin-bottom:36px;
+}
+.btn-row{display:flex; gap:14px; flex-wrap:wrap;}
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:15px 26px;
+  font-family:var(--body); font-weight:600; font-size:14.5px;
+  border:1px solid transparent;
+  transition:transform 0.15s, background 0.2s, border-color 0.2s, color 0.2s;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{background:var(--rojo-bright); color:var(--bone);}
+.btn-primary:hover{background:#ff3357;}
+.btn-ghost{border-color:var(--line-strong); color:var(--bone);}
+.btn-ghost:hover{border-color:var(--bone);}
+
+.console{
+  font-family:var(--mono);
+  position:relative;
+}
+.console-head{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 18px;
+  border-bottom:1px solid var(--line-strong);
+  font-size:11px; letter-spacing:0.08em; color:var(--grey); text-transform:uppercase;
+}
+.console-head .led{
+  width:8px;height:8px;border-radius:50%;
+  background:#2ECC71; box-shadow:0 0 6px #2ECC71;
+}
+.console-body{padding:20px 18px 22px;}
+.console-row{
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding:13px 0;
+  border-bottom:1px solid var(--line);
+  gap:16px;
+}
+.console-row:last-child{border-bottom:none;}
+.console-label{font-size:11.5px; color:var(--grey); letter-spacing:0.04em;}
+.console-value{
+  font-size:15px; font-weight:600; color:var(--bone);
+  text-align:right;
+}
+.console-value.big{
+  font-family:var(--display); font-size:30px; color:var(--rojo-bright);
+}
+.console-foot{
+  padding:14px 18px;
+  border-top:1px solid var(--line-strong);
+  font-size:10.5px; color:var(--grey-dim); letter-spacing:0.03em;
+  display:flex; justify-content:space-between;
+}
+
+section{padding:96px 0; border-bottom:1px solid var(--line);}
+.section-head{
+  display:flex; justify-content:space-between; align-items:flex-end;
+  gap:24px; margin-bottom:52px;
+  flex-wrap:wrap;
+}
+.tag{
+  font-family:var(--mono); font-size:12px; letter-spacing:0.1em;
+  color:var(--rojo-bright); text-transform:uppercase;
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:14px;
+}
+.tag::before{content:''; width:22px; height:1.5px; background:var(--rojo-bright);}
+h2{
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(1.8rem, 3vw, 2.6rem);
+  letter-spacing:-0.01em;
+  max-width:640px;
+}
+.section-note{
+  font-size:14.5px; color:var(--grey); max-width:320px;
+}
+
+.nosotros-grid{
+  display:grid;
+  grid-template-columns:0.9fr 1.1fr;
+  gap:64px;
+  align-items:start;
+}
+.stat-block{
+  display:flex; gap:0;
+  border:1px solid var(--line-strong);
+  margin-bottom:32px;
+}
+.stat{
+  flex:1; padding:22px 20px;
+  border-right:1px solid var(--line-strong);
+}
+.stat:last-child{border-right:none;}
+.stat-num{
+  font-family:var(--display); font-size:32px; font-weight:700; color:var(--rojo-bright);
+  display:block;
+}
+.stat-label{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:0.05em;
+  color:var(--grey); text-transform:uppercase; margin-top:6px; display:block;
+}
+.lead{font-size:18px; color:var(--bone); margin-bottom:18px; font-weight:500;}
+.nosotros-grid p{color:var(--grey); margin-bottom:16px; font-size:15px;}
+
+.vmo-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+  background:var(--line-strong);
+  border:1px solid var(--line-strong);
+}
+.vmo-card{
+  background:var(--ink); padding:28px 24px;
+}
+.vmo-card .vmo-index{
+  font-family:var(--mono); font-size:11px; color:var(--rojo-dim); display:block; margin-bottom:10px;
+}
+.vmo-card h3{
+  font-family:var(--display); font-size:16px; font-weight:600; margin-bottom:10px; letter-spacing:0.01em;
+}
+.vmo-card p{font-size:13.5px; color:var(--grey); line-height:1.6;}
+
+.svc-list{display:flex; flex-direction:column;}
+.svc-item{
+  display:grid;
+  grid-template-columns:90px 1fr 200px;
+  gap:28px;
+  align-items:start;
+  padding:30px 0;
+  border-top:1px solid var(--line);
+  transition:padding-left 0.25s;
+}
+.svc-item:first-child{border-top:1px solid var(--line-strong);}
+.svc-item:hover{padding-left:10px;}
+.svc-num{
+  font-family:var(--mono); font-size:13px; color:var(--rojo-bright); padding-top:4px;
+}
+.svc-content h3{
+  font-family:var(--display); font-weight:600; font-size:19px; margin-bottom:8px;
+}
+.svc-content p{color:var(--grey); font-size:14.5px; max-width:480px;}
+.svc-platforms{
+  display:flex; flex-wrap:wrap; gap:6px; align-content:flex-start;
+  padding-top:4px;
+}
+.chip{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:0.03em;
+  color:var(--grey); border:1px solid var(--line-strong);
+  padding:5px 10px;
+}
+
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  background:var(--line-strong);
+}
+.proj-card{
+  background:var(--ink);
+  aspect-ratio:4/3;
+  position:relative;
+  overflow:hidden;
+}
+.proj-card img{
+  width:100%;height:100%;object-fit:cover;
+  filter:grayscale(35%) contrast(1.05) brightness(0.85);
+  transition:filter 0.4s, transform 0.4s;
+}
+.proj-card:hover img{filter:grayscale(0%) contrast(1.1) brightness(0.95); transform:scale(1.04);}
+.proj-tag{
+  position:absolute; bottom:0; left:0; right:0;
+  padding:16px 18px;
+  background:linear-gradient(to top, rgba(20,23,28,0.92), transparent);
+  font-family:var(--mono); font-size:11.5px; letter-spacing:0.05em;
+  color:var(--bone); text-transform:uppercase;
+}
+
+.why-grid{
+  display:grid; grid-template-columns:repeat(2,1fr); gap:1px;
+  background:var(--line-strong); border:1px solid var(--line-strong);
+}
+.why-card{
+  background:var(--steel); padding:32px;
+  display:flex; gap:20px;
+}
+.why-icon{
+  width:42px;height:42px; flex-shrink:0;
+  border:1px solid var(--rojo-bright);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--rojo-bright); font-family:var(--mono); font-size:14px; font-weight:600;
+}
+.why-card h3{font-family:var(--display); font-size:17px; font-weight:600; margin-bottom:8px;}
+.why-card p{color:var(--grey); font-size:14px;}
+
+.contact-section{padding-bottom:0; border-bottom:none;}
+.contact-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:0;
+  border:1px solid var(--line-strong);
+}
+.contact-form{padding:48px; border-right:1px solid var(--line-strong);}
+.contact-info{padding:48px; background:var(--steel);}
+.field{margin-bottom:20px;}
+.field label{
+  display:block; font-family:var(--mono); font-size:11px; letter-spacing:0.05em;
+  color:var(--grey); text-transform:uppercase; margin-bottom:8px;
+}
+.field input, .field textarea, .field select{
+  width:100%;
+  background:transparent;
+  border:1px solid var(--line-strong);
+  color:var(--bone);
+  padding:13px 14px;
+  font-family:var(--body); font-size:14.5px;
+  transition:border-color 0.2s;
+}
+.field input:focus, .field textarea:focus, .field select:focus{border-color:var(--rojo-bright);}
+.field textarea{resize:vertical; min-height:100px;}
+.field select{appearance:none; cursor:pointer;}
+.field select option{background:var(--steel); color:var(--bone);}
+.submit-btn{width:100%; justify-content:center; border:none;}
+.submit-btn:disabled{opacity:0.6; cursor:not-allowed; transform:none !important;}
+
+.info-block{margin-bottom:32px;}
+.info-block:last-child{margin-bottom:0;}
+.info-label{
+  font-family:var(--mono); font-size:11px; letter-spacing:0.06em;
+  color:var(--rojo-bright); text-transform:uppercase; margin-bottom:10px; display:block;
+}
+.info-block p, .info-block a{
+  font-size:14.5px; color:var(--bone); display:block; line-height:1.7;
+}
+.info-block a:hover{color:var(--rojo-bright);}
+.info-block .muted{color:var(--grey); font-size:13.5px;}
+
+footer{padding:36px 0 30px;}
+.foot-inner{
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:16px;
+}
+.foot-inner p{font-family:var(--mono); font-size:11.5px; color:var(--grey-dim); letter-spacing:0.02em;}
+
+.form-msg{
+  display:none; font-family:var(--mono); font-size:12.5px;
+  color:#2ECC71; margin-top:14px; letter-spacing:0.02em;
+}
+.form-msg.show{display:block;}
+.form-msg.error{color:var(--rojo-bright);}
+
+@media (max-width: 980px){
+  .nav{display:none;}
+  .menu-btn{display:flex;}
+  .hero-inner{grid-template-columns:1fr;}
+  .console{max-width:420px;}
+  .nosotros-grid{grid-template-columns:1fr; gap:40px;}
+  .vmo-grid{grid-template-columns:1fr;}
+  .proj-grid{grid-template-columns:repeat(2,1fr);}
+  .why-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .contact-form{border-right:none; border-bottom:1px solid var(--line-strong);}
+  .svc-item{grid-template-columns:50px 1fr; }
+  .svc-platforms{grid-column:1 / -1; flex-direction:row;}
+}
+@media (max-width: 600px){
+  .wrap{padding:0 20px;}
+  .topbar-inner{padding:0 20px;}
+  .brand img{height:30px;}
+  .stat-block{flex-direction:column;}
+  .stat{border-right:none; border-bottom:1px solid var(--line-strong);}
+  .stat:last-child{border-bottom:none;}
+  .proj-grid{grid-template-columns:1fr;}
+  .contact-form, .contact-info{padding:30px 24px;}
+  .btn-row{flex-direction:column;}
+  .btn{justify-content:center;}
+  .console-row{flex-direction:column; align-items:flex-start; gap:4px;}
+  .console-value{text-align:left;}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#home" class="brand">
+      <img src="logo.png" alt="GD Installazioni">
+    </a>
+
+    <nav class="nav">
+      <a href="#nosotros" data-i18n="nav.nosotros">Nosotros</a>
+      <a href="#servicios" data-i18n="nav.servicios">Servicios</a>
+      <a href="#proyectos" data-i18n="nav.proyectos">Proyectos</a>
+      <a href="#contacto" class="nav-cta" data-i18n="nav.cta">Cotizar proyecto</a>
+    </nav>
+
+    <div class="right-controls">
+      <div class="lang-switch" role="group" aria-label="Selector de idioma">
+        <button type="button" data-lang="es" class="active">ES</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="it">IT</button>
+      </div>
+      <button class="menu-btn" aria-label="Abrir menú" id="menuBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="home">
+    <div class="wrap hero-inner">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> <span data-i18n="hero.eyebrow">Operando en México · Italia · Estados Unidos</span></div>
+        <h1 data-i18n-html="hero.h1">Montamos las líneas<br>que <span class="accent">no se detienen.</span></h1>
+        <p class="hero-sub" data-i18n="hero.sub">18 años instalando, cableando y manteniendo líneas de producción automatizadas para plantas que no pueden permitirse tiempo muerto. Llenado, soplado, embalaje, paletizado — de la ingeniería eléctrica al último tornillo.</p>
+        <div class="btn-row">
+          <a href="#contacto" class="btn btn-primary" data-i18n="hero.btn1">Solicitar cotización →</a>
+          <a href="#servicios" class="btn btn-ghost" data-i18n="hero.btn2">Ver servicios</a>
+        </div>
+      </div>
+
+      <div class="panel console">
+        <span class="rivet"></span><span class="rivet"></span><span class="rivet"></span><span class="rivet"></span>
+        <div class="console-head">
+          <span data-i18n="console.title">Panel de operación</span>
+          <span class="led"></span>
+        </div>
+        <div class="console-body">
+          <div class="console-row">
+            <span class="console-label" data-i18n="console.years">Años en operación</span>
+            <span class="console-value big">18</span>
+          </div>
+          <div class="console-row">
+            <span class="console-label" data-i18n="console.support">Soporte técnico</span>
+            <span class="console-value" data-i18n="console.support_v">IT · EN · ES — 24/7</span>
+          </div>
+          <div class="console-row">
+            <span class="console-label" data-i18n="console.cert">Certificaciones</span>
+            <span class="console-value">ISO 9001 / 14001</span>
+          </div>
+          <div class="console-row">
+            <span class="console-label" data-i18n="console.platforms">Plataformas de control</span>
+            <span class="console-value">Siemens · Rockwell · Schneider</span>
+          </div>
+          <div class="console-row">
+            <span class="console-label" data-i18n="console.sites">Sedes activas</span>
+            <span class="console-value" data-i18n="console.sites_v">Zapopan · Cicero · Italia</span>
+          </div>
+        </div>
+        <div class="console-foot">
+          <span>GD-INST/STATUS</span>
+          <span data-i18n="console.online">EN LÍNEA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="nosotros">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="tag" data-i18n="nosotros.tag">Quiénes somos</div>
+          <h2 data-i18n="nosotros.h2">Las manos adicionales detrás de su línea de producción.</h2>
+        </div>
+        <p class="section-note" data-i18n="nosotros.note">Un equipo técnico que diseña, monta y mantiene, sin subcontratar el trabajo crítico.</p>
+      </div>
+
+      <div class="nosotros-grid">
+        <div>
+          <div class="stat-block">
+            <div class="stat">
+              <span class="stat-num">18+</span>
+              <span class="stat-label" data-i18n="stat.years">Años de experiencia</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">3</span>
+              <span class="stat-label" data-i18n="stat.countries">Países con sede</span>
+            </div>
+          </div>
+          <div class="stat-block">
+            <div class="stat">
+              <span class="stat-num">3</span>
+              <span class="stat-label" data-i18n="stat.languages">Idiomas de soporte</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">2</span>
+              <span class="stat-label" data-i18n="stat.iso">Certificaciones ISO</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="lead" data-i18n="nosotros.lead">Somos un equipo de técnicos especializados en el diseño, montaje y mantenimiento de máquinas y líneas automáticas.</p>
+          <p data-i18n="nosotros.p1">Nuestro trabajo incluye el armado de tableros eléctricos industriales y la personalización de software para líneas automatizadas, operando sobre plataformas Siemens, Rockwell Automation y Schneider Automation.</p>
+          <p data-i18n="nosotros.p2">Con sedes en Zapopan (México), Cicero (Illinois) e Italia, damos soporte técnico en tres idiomas — español, inglés e italiano — para que la comunicación nunca sea el cuello de botella cuando una línea se detiene.</p>
+        </div>
+      </div>
+
+      <div class="vmo-grid" style="margin-top:56px;">
+        <div class="vmo-card">
+          <span class="vmo-index" data-i18n="vmo.1.index">01 — Misión</span>
+          <h3 data-i18n="vmo.1.title">Soluciones a la medida</h3>
+          <p data-i18n="vmo.1.body">Brindar soluciones logísticas personalizadas a las necesidades de cada cliente, con enfoque en eficiencia y velocidad de ejecución.</p>
+        </div>
+        <div class="vmo-card">
+          <span class="vmo-index" data-i18n="vmo.2.index">02 — Visión</span>
+          <h3 data-i18n="vmo.2.title">Estándar de industria</h3>
+          <p data-i18n="vmo.2.body">Superar consistentemente las expectativas del cliente, elevando el estándar del sector y consolidando reconocimiento a nivel global.</p>
+        </div>
+        <div class="vmo-card">
+          <span class="vmo-index" data-i18n="vmo.3.index">03 — Compromiso</span>
+          <h3 data-i18n="vmo.3.title">Plazo y precisión</h3>
+          <p data-i18n="vmo.3.body">Entregas puntuales con atención al detalle y máxima profesionalidad — un equipo valorado tanto por su trabajo como por su confiabilidad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="servicios">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="tag" data-i18n="servicios.tag">Lo que hacemos</div>
+          <h2 data-i18n="servicios.h2">Servicios integrales, de la ingeniería al mantenimiento.</h2>
+        </div>
+        <p class="section-note" data-i18n="servicios.note">Cada servicio se entrega con la misma atención al detalle — sin importar el tamaño del proyecto.</p>
+      </div>
+
+      <div class="svc-list">
+        <div class="svc-item">
+          <span class="svc-num">01</span>
+          <div class="svc-content">
+            <h3 data-i18n="svc.1.title">Montaje e instalación de maquinaria</h3>
+            <p data-i18n="svc.1.body">Instalación de líneas de producción automatizadas completas: llenadoras, sopladoras, equipos de embalaje y transportadores para botella, lata y paleta.</p>
+          </div>
+          <div class="svc-platforms">
+            <span class="chip" data-i18n="svc.1.chip1">Llenado</span>
+            <span class="chip" data-i18n="svc.1.chip2">Soplado</span>
+            <span class="chip" data-i18n="svc.1.chip3">Transportadores</span>
+          </div>
+        </div>
+
+        <div class="svc-item">
+          <span class="svc-num">02</span>
+          <div class="svc-content">
+            <h3 data-i18n="svc.2.title">Proyección y mantenimiento eléctrico</h3>
+            <p data-i18n="svc.2.body">Proyectación, armado y mantenimiento de tableros eléctricos industriales, con personalización de software sobre plataformas Siemens, Rockwell y Schneider.</p>
+          </div>
+          <div class="svc-platforms">
+            <span class="chip">Siemens</span>
+            <span class="chip">Rockwell</span>
+            <span class="chip">Schneider</span>
+          </div>
+        </div>
+
+        <div class="svc-item">
+          <span class="svc-num">03</span>
+          <div class="svc-content">
+            <h3 data-i18n="svc.3.title">Robótica y paletizado</h3>
+            <p data-i18n="svc.3.body">Instalación de robots paletizadores y máquinas depaletizadoras, integrados a la línea existente sin interrumpir la operación más de lo necesario.</p>
+          </div>
+          <div class="svc-platforms">
+            <span class="chip" data-i18n="svc.3.chip1">Paletizado</span>
+            <span class="chip" data-i18n="svc.3.chip2">Despaletizado</span>
+          </div>
+        </div>
+
+        <div class="svc-item">
+          <span class="svc-num">04</span>
+          <div class="svc-content">
+            <h3 data-i18n="svc.4.title">Movimentación con equipo de apoyo</h3>
+            <p data-i18n="svc.4.body">Grúas, montacargas, plataformas elevadas y equipo especializado para mover y posicionar maquinaria pesada con seguridad.</p>
+          </div>
+          <div class="svc-platforms">
+            <span class="chip" data-i18n="svc.4.chip1">Grúas</span>
+            <span class="chip" data-i18n="svc.4.chip2">Montacargas</span>
+          </div>
+        </div>
+
+        <div class="svc-item">
+          <span class="svc-num">05</span>
+          <div class="svc-content">
+            <h3 data-i18n="svc.5.title">Asistencia técnica de emergencia</h3>
+            <p data-i18n="svc.5.body">Soporte de emergencia para todos los proyectos, con asistencia telefónica disponible en italiano, inglés y español.</p>
+          </div>
+          <div class="svc-platforms">
+            <span class="chip">24/7</span>
+            <span class="chip">IT · EN · ES</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proyectos">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="tag" data-i18n="proyectos.tag">Trabajo realizado</div>
+          <h2 data-i18n="proyectos.h2">Líneas instaladas, plantas en marcha.</h2>
+        </div>
+        <p class="section-note" data-i18n="proyectos.note">Una muestra de instalaciones recientes en planta.</p>
+      </div>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <img src="https://gdinstallazioni.com/wp-content/uploads/2025/04/proyectos.jpg" alt="Instalación de línea de producción automatizada" loading="lazy">
+        <span class="proj-tag" data-i18n="proj.1">Línea de embalaje</span>
+      </div>
+      <div class="proj-card">
+        <img src="https://gdinstallazioni.com/wp-content/uploads/2025/04/proyectos2.jpg" alt="Montaje de tablero eléctrico industrial" loading="lazy">
+        <span class="proj-tag" data-i18n="proj.2">Tablero eléctrico</span>
+      </div>
+      <div class="proj-card">
+        <img src="https://gdinstallazioni.com/wp-content/uploads/2025/04/proyetos3.jpg" alt="Instalación de transportador industrial" loading="lazy">
+        <span class="proj-tag" data-i18n="proj.3">Transportador</span>
+      </div>
+      <div class="proj-card">
+        <img src="https://gdinstallazioni.com/wp-content/uploads/2025/04/proyectos4.jpg" alt="Robot paletizador en planta" loading="lazy">
+        <span class="proj-tag" data-i18n="proj.4">Robot paletizador</span>
+      </div>
+      <div class="proj-card">
+        <img src="https://gdinstallazioni.com/wp-content/uploads/2025/04/proyectos5.jpg" alt="Máquina de llenado de envases" loading="lazy">
+        <span class="proj-tag" data-i18n="proj.5">Máquina llenadora</span>
+      </div>
+      <div class="proj-card">
+        <img src="https://gdinstallazioni.com/wp-content/uploads/2025/04/quienes-somos.jpg" alt="Equipo técnico GD Installazioni en planta" loading="lazy">
+        <span class="proj-tag" data-i18n="proj.6">Equipo en planta</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="porque">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="tag" data-i18n="why.tag">¿Por qué elegirnos?</div>
+          <h2 data-i18n="why.h2">Servicios integrales — somos las manos adicionales de su proyecto.</h2>
+        </div>
+        <a href="#contacto" class="btn btn-ghost" data-i18n="why.cta">Escríbenos →</a>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">✓</div>
+          <div>
+            <h3 data-i18n="why.1.title">Certificación ISO 9001 y 14001</h3>
+            <p data-i18n="why.1.body">Procesos auditados de calidad y gestión ambiental — no solo papelería, sino método de trabajo.</p>
+          </div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">⏱</div>
+          <div>
+            <h3 data-i18n="why.2.title">Soporte 24/7 en tres idiomas</h3>
+            <p data-i18n="why.2.body">Asistencia telefónica en italiano, inglés y español para emergencias en planta, sin esperar al horario de oficina.</p>
+          </div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">⚙</div>
+          <div>
+            <h3 data-i18n="why.3.title">Multiplataforma de control</h3>
+            <p data-i18n="why.3.body">Trabajamos sobre Siemens, Rockwell Automation y Schneider — sin atarnos a un solo fabricante.</p>
+          </div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🌎</div>
+          <div>
+            <h3 data-i18n="why.4.title">Presencia en tres países</h3>
+            <p data-i18n="why.4.body">Equipos en Zapopan, Cicero e Italia para responder con cercanía real, no solo soporte remoto.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contacto">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="tag" data-i18n="contact.tag">Contáctenos</div>
+          <h2 data-i18n="contact.h2">Cuéntenos qué necesita instalar o mantener.</h2>
+        </div>
+        <p class="section-note" data-i18n="contact.note">Respondemos cotizaciones en un máximo de 48 horas hábiles.</p>
+      </div>
+
+      <div class="contact-grid">
+        <form class="contact-form" id="contactForm">
+          <div class="field">
+            <label for="name" data-i18n="form.name">Nombre</label>
+            <input type="text" id="name" name="name" required data-i18n-ph="form.name_ph" placeholder="Su nombre completo">
+          </div>
+          <div class="field">
+            <label for="company" data-i18n="form.company">Empresa</label>
+            <input type="text" id="company" name="company" data-i18n-ph="form.company_ph" placeholder="Nombre de la planta o empresa">
+          </div>
+          <div class="field">
+            <label for="email" data-i18n="form.email">Correo electrónico</label>
+            <input type="email" id="email" name="email" required placeholder="usted@empresa.com">
+          </div>
+          <div class="field">
+            <label for="service" data-i18n="form.service">Tipo de servicio</label>
+            <select id="service" name="service">
+              <option data-i18n="svc.1.title">Montaje e instalación de maquinaria</option>
+              <option data-i18n="svc.2.title">Tableros eléctricos y software</option>
+              <option data-i18n="svc.3.title">Robots paletizadores</option>
+              <option data-i18n="svc.4.title">Movimentación con equipo de apoyo</option>
+              <option data-i18n="svc.5.title">Asistencia técnica de emergencia</option>
+              <option data-i18n="form.service_other">Otro / no estoy seguro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="msg" data-i18n="form.msg">Mensaje</label>
+            <textarea id="msg" name="message" data-i18n-ph="form.msg_ph" placeholder="Describa brevemente su proyecto o necesidad"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary submit-btn" id="submitBtn" data-i18n="form.submit">Enviar solicitud</button>
+          <p class="form-msg" id="formMsg" data-i18n="form.success">✓ Solicitud registrada. Le contactaremos en menos de 48 horas hábiles.</p>
+        </form>
+
+        <div class="contact-info">
+          <div class="info-block">
+            <span class="info-label" data-i18n="info.location">Ubicación</span>
+            <p>Beatriz Hernández #1285, Lagos del Country, Zapopan, Jal., México</p>
+            <p style="margin-top:10px;">2135 S Laramie Ave, Cicero, IL 60804, USA</p>
+          </div>
+          <div class="info-block">
+            <span class="info-label" data-i18n="info.call">Llámanos</span>
+            <a href="tel:+523337430839">México: +52 (33) 3743 0839</a>
+            <a href="tel:+393477745542">Italia: +39 (347) 774 5542</a>
+            <a href="tel:+18723640112">Chicago: +1 872 364 0112</a>
+          </div>
+          <div class="info-block">
+            <span class="info-label" data-i18n="info.email">Correo electrónico</span>
+            <a href="mailto:info@gdinstallazioni.com">info@gdinstallazioni.com</a>
+          </div>
+          <div class="info-block">
+            <span class="info-label" data-i18n="info.hours">Horario de atención</span>
+            <p class="muted" data-i18n="info.hours1">Lunes a viernes — 8:00 a 18:00</p>
+            <p class="muted" data-i18n="info.hours2">Sábados — 9:00 a 13:00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <p data-i18n="footer.line">GD INSTALLAZIONI © 2026 — Montaje e instalación de líneas automatizadas</p>
+    <p>Zapopan · Cicero · Italia</p>
+  </div>
+</footer>
+
+<script>
+const i18n = {
+  es: {
+    "nav.nosotros":"Nosotros","nav.servicios":"Servicios","nav.proyectos":"Proyectos","nav.cta":"Cotizar proyecto",
+    "hero.eyebrow":"Operando en México · Italia · Estados Unidos",
+    "hero.h1":"Montamos las líneas<br>que <span class=\"accent\">no se detienen.</span>",
+    "hero.sub":"18 años instalando, cableando y manteniendo líneas de producción automatizadas para plantas que no pueden permitirse tiempo muerto. Llenado, soplado, embalaje, paletizado — de la ingeniería eléctrica al último tornillo.",
+    "hero.btn1":"Solicitar cotización →","hero.btn2":"Ver servicios",
+    "console.title":"Panel de operación","console.years":"Años en operación","console.support":"Soporte técnico","console.support_v":"IT · EN · ES — 24/7",
+    "console.cert":"Certificaciones","console.platforms":"Plataformas de control","console.sites":"Sedes activas","console.sites_v":"Zapopan · Cicero · Italia","console.online":"EN LÍNEA",
+    "nosotros.tag":"Quiénes somos","nosotros.h2":"Las manos adicionales detrás de su línea de producción.",
+    "nosotros.note":"Un equipo técnico que diseña, monta y mantiene, sin subcontratar el trabajo crítico.",
+    "stat.years":"Años de experiencia","stat.countries":"Países con sede","stat.languages":"Idiomas de soporte","stat.iso":"Certificaciones ISO",
+    "nosotros.lead":"Somos un equipo de técnicos especializados en el diseño, montaje y mantenimiento de máquinas y líneas automáticas.",
+    "nosotros.p1":"Nuestro trabajo incluye el armado de tableros eléctricos industriales y la personalización de software para líneas automatizadas, operando sobre plataformas Siemens, Rockwell Automation y Schneider Automation.",
+    "nosotros.p2":"Con sedes en Zapopan (México), Cicero (Illinois) e Italia, damos soporte técnico en tres idiomas — español, inglés e italiano — para que la comunicación nunca sea el cuello de botella cuando una línea se detiene.",
+    "vmo.1.index":"01 — Misión","vmo.1.title":"Soluciones a la medida","vmo.1.body":"Brindar soluciones logísticas personalizadas a las necesidades de cada cliente, con enfoque en eficiencia y velocidad de ejecución.",
+    "vmo.2.index":"02 — Visión","vmo.2.title":"Estándar de industria","vmo.2.body":"Superar consistentemente las expectativas del cliente, elevando el estándar del sector y consolidando reconocimiento a nivel global.",
+    "vmo.3.index":"03 — Compromiso","vmo.3.title":"Plazo y precisión","vmo.3.body":"Entregas puntuales con atención al detalle y máxima profesionalidad — un equipo valorado tanto por su trabajo como por su confiabilidad.",
+    "servicios.tag":"Lo que hacemos","servicios.h2":"Servicios integrales, de la ingeniería al mantenimiento.","servicios.note":"Cada servicio se entrega con la misma atención al detalle — sin importar el tamaño del proyecto.",
+    "svc.1.title":"Montaje e instalación de maquinaria","svc.1.body":"Instalación de líneas de producción automatizadas completas: llenadoras, sopladoras, equipos de embalaje y transportadores para botella, lata y paleta.",
+    "svc.1.chip1":"Llenado","svc.1.chip2":"Soplado","svc.1.chip3":"Transportadores",
+    "svc.2.title":"Proyección y mantenimiento eléctrico","svc.2.body":"Proyectación, armado y mantenimiento de tableros eléctricos industriales, con personalización de software sobre plataformas Siemens, Rockwell y Schneider.",
+    "svc.3.title":"Robótica y paletizado","svc.3.body":"Instalación de robots paletizadores y máquinas depaletizadoras, integrados a la línea existente sin interrumpir la operación más de lo necesario.",
+    "svc.3.chip1":"Paletizado","svc.3.chip2":"Despaletizado",
+    "svc.4.title":"Movimentación con equipo de apoyo","svc.4.body":"Grúas, montacargas, plataformas elevadas y equipo especializado para mover y posicionar maquinaria pesada con seguridad.",
+    "svc.4.chip1":"Grúas","svc.4.chip2":"Montacargas",
+    "svc.5.title":"Asistencia técnica de emergencia","svc.5.body":"Soporte de emergencia para todos los proyectos, con asistencia telefónica disponible en italiano, inglés y español.",
+    "proyectos.tag":"Trabajo realizado","proyectos.h2":"Líneas instaladas, plantas en marcha.","proyectos.note":"Una muestra de instalaciones recientes en planta.",
+    "proj.1":"Línea de embalaje","proj.2":"Tablero eléctrico","proj.3":"Transportador","proj.4":"Robot paletizador","proj.5":"Máquina llenadora","proj.6":"Equipo en planta",
+    "why.tag":"¿Por qué elegirnos?","why.h2":"Servicios integrales — somos las manos adicionales de su proyecto.","why.cta":"Escríbenos →",
+    "why.1.title":"Certificación ISO 9001 y 14001","why.1.body":"Procesos auditados de calidad y gestión ambiental — no solo papelería, sino método de trabajo.",
+    "why.2.title":"Soporte 24/7 en tres idiomas","why.2.body":"Asistencia telefónica en italiano, inglés y español para emergencias en planta, sin esperar al horario de oficina.",
+    "why.3.title":"Multiplataforma de control","why.3.body":"Trabajamos sobre Siemens, Rockwell Automation y Schneider — sin atarnos a un solo fabricante.",
+    "why.4.title":"Presencia en tres países","why.4.body":"Equipos en Zapopan, Cicero e Italia para responder con cercanía real, no solo soporte remoto.",
+    "contact.tag":"Contáctenos","contact.h2":"Cuéntenos qué necesita instalar o mantener.","contact.note":"Respondemos cotizaciones en un máximo de 48 horas hábiles.",
+    "form.name":"Nombre","form.name_ph":"Su nombre completo","form.company":"Empresa","form.company_ph":"Nombre de la planta o empresa",
+    "form.email":"Correo electrónico","form.service":"Tipo de servicio","form.service_other":"Otro / no estoy seguro",
+    "form.msg":"Mensaje","form.msg_ph":"Describa brevemente su proyecto o necesidad","form.submit":"Enviar solicitud",
+    "form.success":"✓ Solicitud registrada. Le contactaremos en menos de 48 horas hábiles.",
+    "info.location":"Ubicación","info.call":"Llámanos","info.email":"Correo electrónico","info.hours":"Horario de atención",
+    "info.hours1":"Lunes a viernes — 8:00 a 18:00","info.hours2":"Sábados — 9:00 a 13:00",
+    "footer.line":"GD INSTALLAZIONI © 2026 — Montaje e instalación de líneas automatizadas"
+  },
+  en: {
+    "nav.nosotros":"About","nav.servicios":"Services","nav.proyectos":"Projects","nav.cta":"Request a quote",
+    "hero.eyebrow":"Operating in Mexico · Italy · United States",
+    "hero.h1":"We build the lines<br>that <span class=\"accent\">never stop.</span>",
+    "hero.sub":"18 years installing, wiring and maintaining automated production lines for plants that can't afford downtime. Filling, blow-molding, packaging, palletizing — from electrical engineering to the last bolt.",
+    "hero.btn1":"Request a quote →","hero.btn2":"View services",
+    "console.title":"Operating panel","console.years":"Years in operation","console.support":"Technical support","console.support_v":"IT · EN · ES — 24/7",
+    "console.cert":"Certifications","console.platforms":"Control platforms","console.sites":"Active sites","console.sites_v":"Zapopan · Cicero · Italy","console.online":"ONLINE",
+    "nosotros.tag":"Who we are","nosotros.h2":"The extra hands behind your production line.",
+    "nosotros.note":"A technical team that designs, installs and maintains, without outsourcing the critical work.",
+    "stat.years":"Years of experience","stat.countries":"Countries with offices","stat.languages":"Support languages","stat.iso":"ISO certifications",
+    "nosotros.lead":"We're a team of technicians specialized in the design, installation and maintenance of automated machines and lines.",
+    "nosotros.p1":"Our work includes building industrial electrical panels and customizing software for automated lines, operating on Siemens, Rockwell Automation and Schneider Automation platforms.",
+    "nosotros.p2":"With offices in Zapopan (Mexico), Cicero (Illinois) and Italy, we provide technical support in three languages — Spanish, English and Italian — so communication is never the bottleneck when a line goes down.",
+    "vmo.1.index":"01 — Mission","vmo.1.title":"Tailored solutions","vmo.1.body":"Delivering logistics solutions tailored to each client's needs, with a focus on efficiency and execution speed.",
+    "vmo.2.index":"02 — Vision","vmo.2.title":"Industry standard","vmo.2.body":"Consistently exceeding client expectations, raising the industry standard and building global recognition.",
+    "vmo.3.index":"03 — Commitment","vmo.3.title":"Timing and precision","vmo.3.body":"On-time delivery with attention to detail and full professionalism — a team valued for its work and its reliability.",
+    "servicios.tag":"What we do","servicios.h2":"End-to-end services, from engineering to maintenance.","servicios.note":"Every service is delivered with the same attention to detail — regardless of project size.",
+    "svc.1.title":"Machinery assembly and installation","svc.1.body":"Installation of complete automated production lines: fillers, blow-molders, packaging equipment and conveyors for bottle, can and pallet.",
+    "svc.1.chip1":"Filling","svc.1.chip2":"Blow-molding","svc.1.chip3":"Conveyors",
+    "svc.2.title":"Electrical design and maintenance","svc.2.body":"Design, assembly and maintenance of industrial electrical panels, with software customization on Siemens, Rockwell and Schneider platforms.",
+    "svc.3.title":"Robotics and palletizing","svc.3.body":"Installation of palletizing robots and depalletizing machines, integrated into the existing line with minimal disruption to operations.",
+    "svc.3.chip1":"Palletizing","svc.3.chip2":"Depalletizing",
+    "svc.4.title":"Heavy equipment handling","svc.4.body":"Cranes, forklifts, elevated platforms and specialized equipment to safely move and position heavy machinery.",
+    "svc.4.chip1":"Cranes","svc.4.chip2":"Forklifts",
+    "svc.5.title":"Emergency technical support","svc.5.body":"Emergency support for all projects, with phone assistance available in Italian, English and Spanish.",
+    "proyectos.tag":"Completed work","proyectos.h2":"Lines installed, plants running.","proyectos.note":"A sample of recent on-site installations.",
+    "proj.1":"Packaging line","proj.2":"Electrical panel","proj.3":"Conveyor","proj.4":"Palletizing robot","proj.5":"Filling machine","proj.6":"Team on site",
+    "why.tag":"Why choose us?","why.h2":"End-to-end services — we're the extra hands on your project.","why.cta":"Get in touch →",
+    "why.1.title":"ISO 9001 and 14001 certified","why.1.body":"Audited quality and environmental management processes — not just paperwork, but a working method.",
+    "why.2.title":"24/7 support in three languages","why.2.body":"Phone assistance in Italian, English and Spanish for plant emergencies, without waiting for office hours.",
+    "why.3.title":"Multi-platform control","why.3.body":"We work on Siemens, Rockwell Automation and Schneider — without locking into a single manufacturer.",
+    "why.4.title":"Presence in three countries","why.4.body":"Teams in Zapopan, Cicero and Italy for real proximity, not just remote support.",
+    "contact.tag":"Contact us","contact.h2":"Tell us what you need installed or maintained.","contact.note":"We respond to quote requests within 48 business hours.",
+    "form.name":"Name","form.name_ph":"Your full name","form.company":"Company","form.company_ph":"Plant or company name",
+    "form.email":"Email address","form.service":"Type of service","form.service_other":"Other / not sure",
+    "form.msg":"Message","form.msg_ph":"Briefly describe your project or need","form.submit":"Send request",
+    "form.success":"✓ Request received. We'll contact you within 48 business hours.",
+    "info.location":"Location","info.call":"Call us","info.email":"Email","info.hours":"Business hours",
+    "info.hours1":"Monday to Friday — 8:00 to 18:00","info.hours2":"Saturdays — 9:00 to 13:00",
+    "footer.line":"GD INSTALLAZIONI © 2026 — Automated line assembly and installation"
+  },
+  it: {
+    "nav.nosotros":"Chi siamo","nav.servicios":"Servizi","nav.proyectos":"Progetti","nav.cta":"Richiedi preventivo",
+    "hero.eyebrow":"Operiamo in Messico · Italia · Stati Uniti",
+    "hero.h1":"Montiamo le linee<br>che <span class=\"accent\">non si fermano.</span>",
+    "hero.sub":"18 anni di installazione, cablaggio e manutenzione di linee di produzione automatizzate per impianti che non possono permettersi fermi macchina. Riempimento, soffiaggio, imballaggio, pallettizzazione — dall'ingegneria elettrica all'ultima vite.",
+    "hero.btn1":"Richiedi preventivo →","hero.btn2":"Vedi i servizi",
+    "console.title":"Pannello operativo","console.years":"Anni di attività","console.support":"Assistenza tecnica","console.support_v":"IT · EN · ES — 24/7",
+    "console.cert":"Certificazioni","console.platforms":"Piattaforme di controllo","console.sites":"Sedi attive","console.sites_v":"Zapopan · Cicero · Italia","console.online":"ONLINE",
+    "nosotros.tag":"Chi siamo","nosotros.h2":"Le mani in più dietro la vostra linea di produzione.",
+    "nosotros.note":"Un team tecnico che progetta, installa e mantiene, senza esternalizzare il lavoro critico.",
+    "stat.years":"Anni di esperienza","stat.countries":"Paesi con sede","stat.languages":"Lingue di assistenza","stat.iso":"Certificazioni ISO",
+    "nosotros.lead":"Siamo un team di tecnici specializzati nella progettazione, installazione e manutenzione di macchine e linee automatiche.",
+    "nosotros.p1":"Il nostro lavoro comprende il montaggio di quadri elettrici industriali e la personalizzazione del software per linee automatizzate, su piattaforme Siemens, Rockwell Automation e Schneider Automation.",
+    "nosotros.p2":"Con sedi a Zapopan (Messico), Cicero (Illinois) e in Italia, offriamo assistenza tecnica in tre lingue — spagnolo, inglese e italiano — affinché la comunicazione non sia mai il collo di bottiglia quando una linea si ferma.",
+    "vmo.1.index":"01 — Missione","vmo.1.title":"Soluzioni su misura","vmo.1.body":"Fornire soluzioni logistiche su misura per le esigenze di ogni cliente, con focus su efficienza e velocità di esecuzione.",
+    "vmo.2.index":"02 — Visione","vmo.2.title":"Standard di settore","vmo.2.body":"Superare costantemente le aspettative del cliente, elevando lo standard del settore e consolidando il riconoscimento a livello globale.",
+    "vmo.3.index":"03 — Impegno","vmo.3.title":"Tempistiche e precisione","vmo.3.body":"Consegne puntuali con attenzione ai dettagli e massima professionalità — un team apprezzato per il lavoro e per l'affidabilità.",
+    "servicios.tag":"Cosa facciamo","servicios.h2":"Servizi completi, dall'ingegneria alla manutenzione.","servicios.note":"Ogni servizio viene erogato con la stessa attenzione ai dettagli — indipendentemente dalle dimensioni del progetto.",
+    "svc.1.title":"Montaggio e installazione di macchinari","svc.1.body":"Installazione di linee di produzione automatizzate complete: riempitrici, soffiatrici, macchine di imballaggio e trasportatori per bottiglie, lattine e pallet.",
+    "svc.1.chip1":"Riempimento","svc.1.chip2":"Soffiaggio","svc.1.chip3":"Trasportatori",
+    "svc.2.title":"Progettazione e manutenzione elettrica","svc.2.body":"Progettazione, montaggio e manutenzione di quadri elettrici industriali, con personalizzazione software su piattaforme Siemens, Rockwell e Schneider.",
+    "svc.3.title":"Robotica e pallettizzazione","svc.3.body":"Installazione di robot pallettizzatori e macchine depallettizzatrici, integrati nella linea esistente con interruzioni minime dell'operatività.",
+    "svc.3.chip1":"Pallettizzazione","svc.3.chip2":"Depallettizzazione",
+    "svc.4.title":"Movimentazione con mezzi dedicati","svc.4.body":"Gru, carrelli elevatori, piattaforme elevate e mezzi specializzati per spostare e posizionare in sicurezza macchinari pesanti.",
+    "svc.4.chip1":"Gru","svc.4.chip2":"Carrelli elevatori",
+    "svc.5.title":"Assistenza tecnica d'emergenza","svc.5.body":"Supporto d'emergenza per tutti i progetti, con assistenza telefonica disponibile in italiano, inglese e spagnolo.",
+    "proyectos.tag":"Lavori realizzati","proyectos.h2":"Linee installate, impianti in funzione.","proyectos.note":"Una selezione di installazioni recenti in impianto.",
+    "proj.1":"Linea di imballaggio","proj.2":"Quadro elettrico","proj.3":"Trasportatore","proj.4":"Robot pallettizzatore","proj.5":"Macchina riempitrice","proj.6":"Team in impianto",
+    "why.tag":"Perché scegliere noi?","why.h2":"Servizi completi — siamo le mani in più del vostro progetto.","why.cta":"Scriveteci →",
+    "why.1.title":"Certificazione ISO 9001 e 14001","why.1.body":"Processi certificati di qualità e gestione ambientale — non solo carte, ma un metodo di lavoro.",
+    "why.2.title":"Assistenza 24/7 in tre lingue","why.2.body":"Assistenza telefonica in italiano, inglese e spagnolo per le emergenze in impianto, senza attendere l'orario d'ufficio.",
+    "why.3.title":"Multipiattaforma di controllo","why.3.body":"Lavoriamo su Siemens, Rockwell Automation e Schneider — senza legarci a un solo produttore.",
+    "why.4.title":"Presenza in tre paesi","why.4.body":"Team a Zapopan, Cicero e in Italia per una vicinanza reale, non solo assistenza da remoto.",
+    "contact.tag":"Contattateci","contact.h2":"Raccontateci cosa dovete installare o mantenere.","contact.note":"Rispondiamo ai preventivi entro un massimo di 48 ore lavorative.",
+    "form.name":"Nome","form.name_ph":"Il suo nome completo","form.company":"Azienda","form.company_ph":"Nome dell'impianto o dell'azienda",
+    "form.email":"Indirizzo email","form.service":"Tipo di servizio","form.service_other":"Altro / non sono sicuro",
+    "form.msg":"Messaggio","form.msg_ph":"Descriva brevemente il suo progetto o la sua necessità","form.submit":"Invia richiesta",
+    "form.success":"✓ Richiesta registrata. Vi contatteremo entro 48 ore lavorative.",
+    "info.location":"Sede","info.call":"Chiamateci","info.email":"Email","info.hours":"Orario di apertura",
+    "info.hours1":"Lunedì–venerdì — 8:00–18:00","info.hours2":"Sabato — 9:00–13:00",
+    "footer.line":"GD INSTALLAZIONI © 2026 — Montaggio e installazione di linee automatizzate"
+  }
+};
+
+function applyLang(lang){
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    const key = el.getAttribute('data-i18n');
+    if(i18n[lang][key] !== undefined) el.textContent = i18n[lang][key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+    const key = el.getAttribute('data-i18n-html');
+    if(i18n[lang][key] !== undefined) el.innerHTML = i18n[lang][key];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+    const key = el.getAttribute('data-i18n-ph');
+    if(i18n[lang][key] !== undefined) el.setAttribute('placeholder', i18n[lang][key]);
+  });
+  document.querySelectorAll('.lang-switch button').forEach(function(btn){
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+  try{ localStorage.setItem('gd_lang', lang); }catch(e){}
+}
+
+document.querySelectorAll('.lang-switch button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    applyLang(btn.getAttribute('data-lang'));
+  });
+});
+
+(function(){
+  let saved = null;
+  try{ saved = localStorage.getItem('gd_lang'); }catch(e){}
+  if(saved && i18n[saved]) applyLang(saved);
+})();
+
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  document.getElementById('formMsg').classList.remove('error');
+  document.getElementById('formMsg').classList.add('show');
+  this.reset();
+});
+
+document.getElementById('menuBtn').addEventListener('click', function(){
+  const nav = document.querySelector('.nav');
+  const isOpen = nav.style.display === 'flex';
+  if(isOpen){
+    nav.style.display = 'none';
+  } else {
+    nav.style.cssText = 'display:flex;position:absolute;top:76px;left:0;right:0;background:#14171C;flex-direction:column;padding:20px 28px;border-bottom:1px solid rgba(245,243,238,0.12);gap:18px;z-index:99;';
+  }
+});
+document.querySelectorAll('.nav a').forEach(function(link){
+  link.addEventListener('click', function(){
+    if(window.innerWidth <= 980){
+      document.querySelector('.nav').style.display = 'none';
+    }
+  });
+});
+</script>
+
+</body>
+</html>
